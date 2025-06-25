@@ -1,14 +1,9 @@
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def index():
-    return jsonify(message="Hello from QuakeWatch via Flask!")
+    return 'Quakewatch is on!'
 
-@app.route("/health")
-def health():
-    return jsonify(status="ok")
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8081)
+app.run(host='0.0.0.0', port=8081)
