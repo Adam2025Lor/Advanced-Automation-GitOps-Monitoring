@@ -4,8 +4,6 @@ metadata:
   name: {{ include "quakewatch.fullname" . }}
   labels:
     {{- include "quakewatch.labels" . | nindent 4 }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: {{ .Values.service.type }}
   ports:
