@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: yourdockerhub/quakewatch
+  repository: adamlor/quakewatch
   tag: latest
   pullPolicy: IfNotPresent
 
