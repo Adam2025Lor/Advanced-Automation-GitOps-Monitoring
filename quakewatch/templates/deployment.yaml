@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "quakewatch.fullname" . }}
-  labels:
-    app: {{ include "quakewatch.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,21 +12,12 @@ spec:
       labels:
         app: {{ include "quakewatch.name" . }}
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "{{ .Values.service.port }}"
-        prometheus.io/path: "/metrics"
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
     spec:
-      serviceAccountName: {{ default (include "quakewatch.serviceAccountName" .) .Values.serviceAccount.name }}
+      serviceAccountName: {{ include "quakewatch.serviceAccountName" . }}
       containers:
         - name: quakewatch
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          resources:
-            limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
-            requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
