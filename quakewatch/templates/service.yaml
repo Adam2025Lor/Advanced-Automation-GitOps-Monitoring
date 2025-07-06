@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: {{ include "quakewatch.fullname" . }}
   labels:
-    {{- include "quakewatch.labels" . | nindent 4 }}
+    app: {{ include "quakewatch.name" . }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: {{ .Values.service.port }}
       protocol: TCP
       name: http
   selector:
-    {{- include "quakewatch.selectorLabels" . | nindent 4 }}
+    app: {{ include "quakewatch.name" . }}
