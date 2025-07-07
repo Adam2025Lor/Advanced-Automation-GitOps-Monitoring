@@ -78,6 +78,12 @@ autoscaling:
 
 prometheus:
   enabled: true
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring         # Where kube-prometheus-stack is installed
+    interval: 15s
+    labels:
+      release: prometheus
 
 tolerations: []
 
