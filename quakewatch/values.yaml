@@ -80,10 +80,10 @@ prometheus:
   enabled: true
   serviceMonitor:
     enabled: true
-    namespace: monitoring        # namespace where Prometheus is installed
+    namespace: monitoring
     interval: 15s
     labels:
-      release: prometheus
+      release: prometheus-operator
 
 tolerations: []
 
