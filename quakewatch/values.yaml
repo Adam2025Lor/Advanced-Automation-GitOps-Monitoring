@@ -83,7 +83,7 @@ prometheus:
     namespace: monitoring
     interval: 15s
     labels:
-      release: prometheus-operator
+      release: prometheu
 
 tolerations: []
 
