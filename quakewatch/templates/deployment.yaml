@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "quakewatch.fullname" . }}
+  labels:
+    {{- include "quakewatch.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
