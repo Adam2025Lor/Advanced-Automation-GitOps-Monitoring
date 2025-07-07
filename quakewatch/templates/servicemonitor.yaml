@@ -1,0 +1,17 @@
+{{- if and .Values.prometheus.enabled .Values.prometheus.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "quakewatch.fullname" . }}
+  namespace: {{ .Values.prometheus.serviceMonitor.namespace }}
+  labels:
+    {{- toYaml .Values.prometheus.serviceMonitor.labels | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "quakewatch.name" . }}      # This must match the label on your Service
+  endpoints:
+    - port: http                                  # The port name in your Service
+      interval: {{ .Values.prometheus.serviceMonitor.interval }}
+      path: /metrics                             # Your app metrics endpoint
+{{- end }}
