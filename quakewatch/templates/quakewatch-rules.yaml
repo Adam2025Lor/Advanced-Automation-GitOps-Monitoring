@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: quakewatch-rules
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: quakewatch.rules
+      rules:
+        - alert: HighQuakewatchErrorRate
+          expr: |
+            rate(quakewatch_requests_total{status="error"}[1m]) > 0.1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate detected in QuakeWatch"
+            description: "More than 10% of requests are failing in the last minute."
