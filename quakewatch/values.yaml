@@ -80,7 +80,7 @@ prometheus:
   enabled: true
   serviceMonitor:
     enabled: true
-    namespace: monitoring   # <-- This must match the Service's namespace
+    namespace: quakewatch
     interval: 15s
     labels:
       release: prometheus
